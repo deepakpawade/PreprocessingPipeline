@@ -30,5 +30,50 @@ Normalizing the independent variables can be sufficient for many machine learnin
 
 
 imputation:
-1. numerical : LinearRegression, KNN, delete, mean, median, mode
-2. categorical
+1. numerical : LinearRegression, KNN, delete, mean, median, mode, BayesianRidge
+2. categorical : mode, 
+
+
+IterativeImputer is a multivariate imputation method that uses machine learning algorithms to impute missing values in a dataset. It is a widely used method for handling missing data in various domains, including healthcare, finance, and social sciences.
+
+The IterativeImputer works by iterating over each feature with missing values and using the other features to predict the missing values. It repeats this process until the imputed values converge, or the maximum number of iterations is reached. The method can handle both continuous and categorical data, and it can also handle different types of machine learning models for imputation, such as linear regression, decision trees, and k-nearest neighbors.
+
+The iterative imputation process can be broken down into the following steps:
+
+Identify the features with missing values in the dataset.
+Split the dataset into two parts: a training set and a test set. The training set contains all the features with complete data, while the test set contains the features with missing values.
+Train a machine learning model using the training set and the features with missing values as the target variable.
+Use the trained model to predict the missing values in the test set.
+Replace the missing values in the test set with the predicted values.
+Combine the imputed test set with the original training set to form a new complete dataset.
+Repeat steps 2-6 until the imputed values converge, or the maximum number of iterations is reached.
+The IterativeImputer in scikit-learn has several parameters that can be adjusted to customize the imputation process. For example, the user can specify the number of iterations, the machine learning model used for imputation, and the number of neighbors used in k-nearest neighbors imputation.
+
+One of the advantages of the IterativeImputer method is that it takes into account the correlations between the features in the dataset. This allows it to produce more accurate imputations compared to simpler methods such as mean imputation or forward filling. However, it can also be computationally expensive and may require more time and resources compared to other methods.
+
+use IterativeImputer with Regression and till convergence
+# create an instance of IterativeImputer with regression
+reg_imputer = IterativeImputer(random_state=0, estimator=BayesianRidge())
+
+# fit the imputer on the dataset with missing values
+reg_imputer.fit(X_train)
+
+# transform the dataset to fill in missing values until convergence
+X_imputed = reg_imputer.transform(X_train)
+
+# check for convergence of imputed values
+while True:
+    new_imputed = reg_imputer.transform(X_imputed)
+    if np.allclose(X_imputed, new_imputed):
+        break
+    X_imputed = new_imputed
+The BayesianRidge() function is an estimator from the scikit-learn Python library that implements Bayesian Ridge Regression. Bayesian Ridge Regression is a regression algorithm that is based on Bayesian statistics and is commonly used for modeling relationships between continuous variables. It works by estimating a probability distribution over possible models and then using this distribution to make predictions. The BayesianRidge() function creates an instance of the Bayesian Ridge Regression estimator with default parameters that can be used to fit a model to data and make predictions.
+
+What are models can be used here
+The IterativeImputer class in scikit-learn allows you to use a range of estimators/models for imputing missing values. Some of the models that can be used with the IterativeImputer include:
+
+BayesianRidge: A probabilistic model that uses Bayesian inference to estimate the coefficients of a linear regression model.
+DecisionTreeRegressor: A non-parametric model that recursively partitions the data into subsets based on the value of a single feature, and fits a simple regression model within each subset.
+RandomForestRegressor: An ensemble model that fits multiple decision trees on random subsets of the data and aggregates their predictions.
+KNeighborsRegressor: A non-parametric model that predicts the value of a target variable based on the values of its k-nearest neighbors in the feature space.
+ExtraTreesRegressor: A variant of the random forest model that uses random splits for each feature and selects the best split among a random subset of features.
