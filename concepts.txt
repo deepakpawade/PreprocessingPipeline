@@ -77,3 +77,13 @@ DecisionTreeRegressor: A non-parametric model that recursively partitions the da
 RandomForestRegressor: An ensemble model that fits multiple decision trees on random subsets of the data and aggregates their predictions.
 KNeighborsRegressor: A non-parametric model that predicts the value of a target variable based on the values of its k-nearest neighbors in the feature space.
 ExtraTreesRegressor: A variant of the random forest model that uses random splits for each feature and selects the best split among a random subset of features.
+
+Outlier imputation methods other than winzorization
+There are several other outlier imputation methods apart from winsorization. Some of them are:
+Mean or Median Imputation: Replace outliers with the mean or median value of the data.
+Interpolation: Replace outliers with interpolated values based on the surrounding data points.
+Clustering: Identify and replace outliers with the nearest cluster centroid.
+Local Outlier Factor (LOF): Identify outliers based on their deviation from the local density of their neighbors and replace them with nearby data points.
+Isolation Forest: Use an ensemble of decision trees to identify and replace outliers based on their isolation from the rest of the data.
+Robust Random Cut Forest (RRCF): Similar to Isolation Forest, but uses a different algorithm to identify outliers based on their depth in the decision tree.
+One-Class SVM: Use a support vector machine to identify and replace outliers based on their separation from the rest of the data.
